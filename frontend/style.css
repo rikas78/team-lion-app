@@ -1,0 +1,197 @@
+:root {
+    --red-lion: #ff0000;
+    --dark-bg: #1a1a1a;
+    --light-text: #ffffff;
+    --secondary-red: #cc0000;
+    --green-btn: #4CAF50;
+    --green-hover: #45a049;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #000 0%, var(--dark-bg) 100%);
+    color: var(--light-text);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 10px;
+    background: linear-gradient(45deg, var(--red-lion), var(--light-text), 
+#00ff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header h1 {
+    font-size: 2.2em;
+    margin: 0;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.auth-container, .main-app {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    border: 2px solid var(--red-lion);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+}
+
+.auth-container h2, .main-app h2, .section h3 {
+    text-align: center;
+    color: var(--red-lion);
+    margin-bottom: 15px;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #666;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input {
+    background-color: rgba(255,255,255,0.9);
+    color: #000;
+}
+
+.login-btn, .register-btn, .logout-btn, .nav-btn, .save-btn {
+    color: var(--light-text);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn { background: linear-gradient(45deg, var(--green-btn), 
+#009900); }
+.register-btn { background: linear-gradient(45deg, var(--red-lion), 
+var(--secondary-red)); }
+.login-btn:hover, .register-btn:hover { filter: brightness(1.2); 
+transform: translateY(-2px); }
+
+.logout-btn { background: var(--secondary-red); margin-top: 15px; }
+
+.nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--red-lion);
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.nav-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+}
+
+.section {
+    display: none;
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--secondary-red);
+}
+
+.pilot-item, .event-item {
+    background: linear-gradient(45deg, var(--red-lion), 
+var(--secondary-red));
+    margin: 6px 0;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255,0,0,0.2);
+}
+
+.pilot-item:hover, .event-item:hover {
+    background: linear-gradient(45deg, #ff3333, #bb0000);
+    transform: translateY(-1px);
+}
+
+.pilot-item.active {
+    background: linear-gradient(45deg, #00ff00, #009900);
+    border-color: #fff;
+}
+
+.pilot-name { font-weight: bold; }
+.pilot-status { font-size: 0.8em; opacity: 0.9; }
+.arrow { float: right; transition: transform 0.3s ease; }
+.arrow.rotated { transform: rotate(180deg); }
+
+.pilot-details {
+    background: rgba(0,0,0,0.4);
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #666;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-row { margin: 6px 0; }
+.form-row label { display: block; font-size: 0.9em; margin-bottom: 2px; }
+.form-row input, textarea { width: 100%; }
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5px;
+    margin: 8px 0;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #666;
+}
+
+.save-btn { background: var(--green-btn); margin-top: 10px; }
+
+.event-info p { margin: 5px 0; }
+.event-info a { color: #fff; text-decoration: none; font-weight: bold; }
+.event-info a:hover { text-decoration: underline; }
+
+.private-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.stats-box {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #666;
+}
+
+.toggle-section { cursor: pointer; display: flex; justify-content: 
+space-between; align-items: center; }
+
+.back-btn { background: #555; margin-top: 10px; }

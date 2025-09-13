@@ -1,0 +1,7 @@
+[build]
+publish = "frontend"
+command = "cd backend && npm install"
+
+[functions]
+directory = "backend"
+node_bundler = "esbuild"

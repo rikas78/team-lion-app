@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='it'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Team Lion Motorsport</title>
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+    <div class='header'>
+        <h1>🦁 TEAM LION MOTORSPORT 🏁</h1>
+    </div>
+    <div class='container auth-container' id='auth-section'>
+        <h2>Entra o Registrati</h2>
+        <input type='text' id='username' placeholder='Inserisci il tuo 
+nome'>
+        <input type='password' id='password' placeholder='Parola Chiave 
+(solo per la prima volta)'>
+        <button class='register-btn' 
+onclick="handleAuth('register')">Registrati</button>
+        <button class='login-btn' 
+onclick="handleAuth('login')">Accedi</button>
+    </div>
+    <div class='container main-app' id='main-app' style='display: none;'>
+        <h2 id='welcome-message'>Ciao, Pilota!</h2>
+        <button class='logout-btn' onclick='logout()'>Esci</button>
+        <div class='instructions'>
+            <h3>📋 MENU</h3>
+        </div>
+        <button class='nav-btn' 
+onclick="showSection('dashboard-section')">Bacheca</button>
+        <div class='section' id='dashboard-section' style='display: 
+block;'>
+            <h3>🏁 Prossime Gare</h3>
+            <div id='races-list'></div>
+            <h3>⚙️ Allenamenti</h3>
+            <div id='trainings-list'></div>
+            <h3>🏆 Campionati in corso</h3>
+            <div id='championships-list'></div>
+        </div>
+        <button class='nav-btn' 
+onclick="showSection('pilot-list-section')">Elenco Piloti & 
+Disponibilità</button>
+        <div class='section' id='pilot-list-section'>
+            <h3>🏎️ COMPILA LA TUA DISPONIBILITÀ</h3>
+            <div id='pilot-list-container'></div>
+        </div>
+        <button class='nav-btn' 
+onclick="showSection('private-area-section')">La mia area privata</button>
+        <div class='section' id='private-area-section'>
+            <h3>👤 Area Privata</h3>
+            <div class='private-area'>
+                <h4 id='private-pilot-name'></h4>
+                <p><strong>PSN ID:</strong> <span 
+id='private-psn-id'></span></p>
+                <p><strong>Prossima gara:</strong> <span 
+id='next-race-info'>Nessuna gara iscritta</span></p>
+                <button class='nav-btn' 
+onclick="toggleDetails('stats-section')">Le mie Statistiche ▼</button>
+                <div class='stats-box pilot-details' id='stats-section'>
+                    <label>Vittorie:</label>
+                    <input type='number' id='stats-wins' value='0'>
+                    <label>Podi:</label>
+                    <input type='number' id='stats-podiums' value='0'>
+                    <label>Pole:</label>
+                    <input type='number' id='stats-poles' value='0'>
+                    <button class='save-btn' 
+onclick='saveStats()'>Aggiorna Statistiche</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
