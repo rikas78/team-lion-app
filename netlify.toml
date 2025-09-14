@@ -1,7 +1,11 @@
 [build]
-publish = "frontend"
-command = "cd backend && npm install"
+  command = "npm run build"
+  publish = "frontend"
 
 [functions]
-directory = "backend"
-node_bundler = "esbuild"
+  directory = "backend"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
