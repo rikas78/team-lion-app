@@ -1,12 +1,11 @@
 [build]
-  command = ""
+  command = "npm run build"
   publish = "frontend"
-  functions = "netlify/functions"
-  
+
+[functions]
+  directory = "netlify/functions"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  NEON_DATABASE_URL = ""
