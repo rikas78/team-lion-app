@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://delicate-gingersnap-c172ba.netlify.app/.netlify/functions/server';
+const API_BASE_URL = 'https://team-lion-app.netlify.app/.netlify/functions/api';
 const KEY_CODE = 'tlmsim25';
 
 document.addEventListener('DOMContentLoaded', () => {
