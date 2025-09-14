@@ -10,11 +10,9 @@ const client = new Client({
   ssl: { rejectUnauthorized: false }
 });
 
-client.connect().then(() => {
-  console.log("PostgreSQL connected");
-}).catch(err => {
-  console.error("PostgreSQL connection error:", err);
-});
+client.connect()
+  .then(() => console.log("PostgreSQL connected"))
+  .catch(err => console.error("PostgreSQL connection error:", err));
 
 app.use(express.json());
 app.use(cors());
@@ -23,16 +21,22 @@ app.use(cors());
 app.post("/pilots", async (req, res) => {
   const { name, psn, availability, raceTypes, notes } = req.body;
   try {
-    const query = \`
+    const queryText = `
       INSERT INTO pilots (name, psn_id, availability, race_types, notes)
       VALUES ($1, $2, $3, $4, $5)
       ON CONFLICT (name) DO UPDATE SET
-        psn_id = EXCLUDED.psn_id,
+        psn_id       = EXCLUDED.psn_id,
         availability = EXCLUDED.availability,
-        race_types = EXCLUDED.race_types,
-        notes = EXCLUDED.notes
-    \`;
-    await client.query(query, [name, psn, availability, raceTypes, notes]);
+        race_types   = EXCLUDED.race_types,
+        notes        = EXCLUDED.notes
+    `;
+    await client.query(queryText, [
+      name,
+      psn,
+      availability,
+      raceTypes,
+      notes
+    ]);
     res.status(200).json({ message: "Dati salvati con successo." });
   } catch (err) {
     console.error("Error POST /pilots:", err);
