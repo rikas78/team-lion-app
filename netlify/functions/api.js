@@ -12,7 +12,7 @@ const client = new Client({
 client.connect();
 app.use(express.json());
 app.use(cors());
-app.post("/api/pilots", async (req, res) => {
+app.post("/pilots", async (req, res) => {
   const { name, psn, availability, raceTypes, notes } = req.body;
   try {
     const query = `
@@ -34,7 +34,7 @@ app.post("/api/pilots", async (req, res) => {
 module.exports.handler = serverless(app);
 
 // Route GET per ottenere i piloti
-app.get("/api/pilots", async (req, res) => {
+app.get("/pilots", async (req, res) => {
   try {
     const query = `SELECT * FROM pilots ORDER BY name`;
     const result = await client.query(query);

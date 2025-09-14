@@ -20,7 +20,7 @@ async function handleAuth(type) {
             return;
         }
         try {
-            const response = await fetch(`${API_BASE_URL}/api/pilots`, {
+            const response = await fetch(`${API_BASE_URL}/pilots`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: username })
@@ -40,7 +40,7 @@ async function handleAuth(type) {
         }
     } else if (type === 'login') {
         try {
-            const response = await fetch(`${API_BASE_URL}/api/pilots`);
+            const response = await fetch(`${API_BASE_URL}/pilots`);
             const pilots = await response.json();
             if (pilots.some(p => p.name.toLowerCase() === username.toLowerCase())) {
                 localStorage.setItem('userName', username);
@@ -81,7 +81,7 @@ async function fetchPilotList() {
     const listContainer = document.getElementById('pilot-list-container');
     listContainer.innerHTML = 'Caricamento piloti...';
     try {
-        const response = await fetch(`${API_BASE_URL}/api/pilots`);
+        const response = await fetch(`${API_BASE_URL}/pilots`);
         const pilots = await response.json();
         listContainer.innerHTML = '';
         pilots.forEach((pilot, index) => {
@@ -107,7 +107,7 @@ async function savePilot(name, index) {
     const raceTypes = ['Endurance', 'Sprint', 'Campionato', 'Fun Race'].filter(type => document.getElementById(`race${index}-${type}`).checked).join(',');
     const payload = { name, psn, availability, raceTypes, notes };
     try {
-        const response = await fetch(`${API_BASE_URL}/api/pilots`, {
+        const response = await fetch(`${API_BASE_URL}/pilots`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
