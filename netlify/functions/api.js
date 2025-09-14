@@ -32,3 +32,15 @@ app.post("/api/pilots", async (req, res) => {
   }
 });
 module.exports.handler = serverless(app);
+
+// Route GET per ottenere i piloti
+app.get("/api/pilots", async (req, res) => {
+  try {
+    const query = `SELECT * FROM pilots ORDER BY name`;
+    const result = await client.query(query);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Errore nel recuperare i dati." });
+  }
+});
