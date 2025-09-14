@@ -19,8 +19,8 @@ app.use(cors());
 
 // POST /pilots
 app.post("/pilots", async (req, res) => {
-  const { name, psn, availability, raceTypes, notes } = req.body;
   try {
+    const { name, psn, availability, raceTypes, notes } = req.body;
     const queryText = `
       INSERT INTO pilots (name, psn_id, availability, race_types, notes)
       VALUES ($1, $2, $3, $4, $5)
@@ -30,13 +30,7 @@ app.post("/pilots", async (req, res) => {
         race_types   = EXCLUDED.race_types,
         notes        = EXCLUDED.notes
     `;
-    await client.query(queryText, [
-      name,
-      psn,
-      availability,
-      raceTypes,
-      notes
-    ]);
+    await client.query(queryText, [name, psn, availability, raceTypes, notes]);
     res.status(200).json({ message: "Dati salvati con successo." });
   } catch (err) {
     console.error("Error POST /pilots:", err);
