@@ -1,6 +1,5 @@
 [build]
   publish = "frontend"
-  # rimuovi completamente la riga `command`
 
 [functions]
   directory = "netlify/functions"

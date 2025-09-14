@@ -1,75 +1,107 @@
 <!DOCTYPE html>
-<html lang='it'>
+<html lang="it">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Team Lion Motorsport</title>
-    <link rel='stylesheet' href='style.css'>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🦁 Team Lion Motorsport</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class='header'>
-        <h1>🦁 TEAM LION MOTORSPORT 🏁</h1>
+  <!-- 1. Header: Registrazione & Accesso -->
+  <header class="tlm-header">
+    <div class="logo">🦁 TLM</div>
+    <div id="auth-widget" class="auth-widget">
+      <input id="first-name" placeholder="Nome Pilota*" />
+      <input id="last-initial" placeholder="Iniziale Cognome" maxlength="1" />
+      <input id="email" type="email" placeholder="Email*" />
+      <input id="mobile" type="tel" placeholder="Mobile" />
+      <input id="psn-id" placeholder="PSN ID*" />
+      <button id="btn-register" onclick="handleRegister()">Registrati</button>
+      <button id="btn-login" onclick="handleLogin()">Accedi</button>
     </div>
-    <div class='container auth-container' id='auth-section'>
-        <h2>Entra o Registrati</h2>
-        <input type='text' id='username' placeholder='Inserisci il tuo 
-nome'>
-        <input type='password' id='password' placeholder='Parola Chiave 
-(solo per la prima volta)'>
-        <button class='register-btn' 
-onclick="handleAuth('register')">Registrati</button>
-        <button class='login-btn' 
-onclick="handleAuth('login')">Accedi</button>
+    <div id="welcome-msg" class="welcome-msg" style="display:none;">
+      Ciao, <span id="user-name"></span>!
     </div>
-    <div class='container main-app' id='main-app' style='display: none;'>
-        <h2 id='welcome-message'>Ciao, Pilota!</h2>
-        <button class='logout-btn' onclick='logout()'>Esci</button>
-        <div class='instructions'>
-            <h3>📋 MENU</h3>
-        </div>
-        <button class='nav-btn' 
-onclick="showSection('dashboard-section')">Bacheca</button>
-        <div class='section' id='dashboard-section' style='display: 
-block;'>
-            <h3>🏁 Prossime Gare</h3>
-            <div id='races-list'></div>
-            <h3>⚙️ Allenamenti</h3>
-            <div id='trainings-list'></div>
-            <h3>🏆 Campionati in corso</h3>
-            <div id='championships-list'></div>
-        </div>
-        <button class='nav-btn' 
-onclick="showSection('pilot-list-section')">Elenco Piloti & 
-Disponibilità</button>
-        <div class='section' id='pilot-list-section'>
-            <h3>🏎️ COMPILA LA TUA DISPONIBILITÀ</h3>
-            <div id='pilot-list-container'></div>
-        </div>
-        <button class='nav-btn' 
-onclick="showSection('private-area-section')">La mia area privata</button>
-        <div class='section' id='private-area-section'>
-            <h3>👤 Area Privata</h3>
-            <div class='private-area'>
-                <h4 id='private-pilot-name'></h4>
-                <p><strong>PSN ID:</strong> <span 
-id='private-psn-id'></span></p>
-                <p><strong>Prossima gara:</strong> <span 
-id='next-race-info'>Nessuna gara iscritta</span></p>
-                <button class='nav-btn' 
-onclick="toggleDetails('stats-section')">Le mie Statistiche ▼</button>
-                <div class='stats-box pilot-details' id='stats-section'>
-                    <label>Vittorie:</label>
-                    <input type='number' id='stats-wins' value='0'>
-                    <label>Podi:</label>
-                    <input type='number' id='stats-podiums' value='0'>
-                    <label>Pole:</label>
-                    <input type='number' id='stats-poles' value='0'>
-                    <button class='save-btn' 
-onclick='saveStats()'>Aggiorna Statistiche</button>
-                </div>
-            </div>
-        </div>
+  </header>
+
+  <!-- 2. Hero & Brand -->
+  <section class="hero">
+    <h1>🦁 TEAM LION MOTORSPORT</h1>
+    <p class="tagline">La tua community GT7 è qui!</p>
+  </section>
+
+  <!-- 3. Podio Campionati in Corso -->
+  <section class="podium-section">
+    <h2>🏆 Podio Campionati in Corso</h2>
+    <div id="podium-cards" class="podium-cards"></div>
+    <button onclick="viewFullStandings()">Scopri la classifica completa</button>
+  </section>
+
+  <!-- 4. Classifiche Laterali -->
+  <aside class="sidebar">
+    <h3>📋 Classifiche Live</h3>
+    <ul id="live-standings" class="live-standings"></ul>
+  </aside>
+
+  <!-- 5. Bacheca Reclami & Segnalazioni -->
+  <section class="complaints-section">
+    <h2>🚩 Reclami & Segnalazioni</h2>
+    <form id="complaint-form" onsubmit="submitComplaint(event)">
+      <select id="event-select"><option>Seleziona Evento</option></select>
+      <input id="race-number" type="number" placeholder="Gara #" />
+      <input id="complainant" placeholder="Pilota che reclama" />
+      <select id="involved-pilots" multiple></select>
+      <input id="complaint-link" placeholder="URL o upload file" />
+      <button type="submit">Invia reclamo</button>
+    </form>
+    <ul id="complaints-list" class="complaints-list"></ul>
+  </section>
+
+  <!-- 6. Upload PDF Gare & Classifiche -->
+  <section class="upload-section">
+    <h2>📂 Upload PDF Gare & Classifiche</h2>
+    <div id="pdf-dropzone" class="dropzone">Trascina i PDF qui</div>
+    <table id="upload-status" class="upload-status">
+      <tr><th>File</th><th>Stato</th></tr>
+    </table>
+  </section>
+
+  <!-- 7. Elenco Eventi Futuri -->
+  <section class="upcoming-events">
+    <h2>📅 Eventi Futuri</h2>
+    <table class="events-table">
+      <thead>
+        <tr><th>Data</th><th>Ora</th><th>Competizione</th><th>Circuito</th><th>Macchina</th><th>Host</th></tr>
+      </thead>
+      <tbody id="upcoming-events-body"></tbody>
+    </table>
+  </section>
+
+  <!-- 8. Video Car Spotlight -->
+  <section class="video-spotlight">
+    <h2>🎥 Car Spotlight</h2>
+    <div id="video-grid" class="video-grid"></div>
+  </section>
+
+  <!-- 9. Statistiche Curiose -->
+  <section class="stats-section">
+    <h2>📊 Statistiche Curiose</h2>
+    <div class="stats-cards">
+      <div class="stat-card"><span id="total-races">0</span><p>Gare disputate</p></div>
+      <div class="stat-card"><span id="total-drivers">0</span><p>Piloti registrati</p></div>
+      <div class="stat-card"><span id="best-reaction">0ms</span><p>Record reattività</p></div>
+      <div class="stat-card"><span id="avg-fuel">0L</span><p>Consumo medio carburante</p></div>
     </div>
-    <script src="script.js"></script>
+  </section>
+
+  <!-- 10. Footer & Link Utili -->
+  <footer class="tlm-footer">
+    <a href="#track-guides">Track Guides</a> |
+    <a href="#training">Allenamento</a> |
+    <a href="#contacts">Contatti</a>
+    <p>© 2025 Team Lion Motorsport</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
