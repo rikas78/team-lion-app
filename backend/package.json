@@ -2,7 +2,7 @@
   "name": "team-lion-backend",
   "version": "1.0.0",
   "description": "API backend for Team Lion App",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
